@@ -30,7 +30,7 @@ export default class HomePage extends React.Component {
                                 <h2 className="wow fadeInUp animated" data-wow-delay=".6s" >
                                     With 2 years experience, I've occupied many skills including sit,<br /> hand hand and 賣萌. This site showcases some of my work.
                                 </h2>
-                                <a className="btn-lines dark light wow fadeInUp animated smooth-scroll btn btn-default btn-green" data-wow-delay=".9s" href="#works" data-section="#works" >View Works</a>
+                                <a className="btn-lines dark light wow fadeInUp animated smooth-scroll btn btn-default btn-green" data-wow-delay=".9s" href="/timeline" data-section="#works" >View Works</a>
                                 
                             </div>
                         </div>
