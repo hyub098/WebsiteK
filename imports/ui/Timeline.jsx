@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 
+
+Timeline = new Mongo.Collection("timeline");
+
 export default class Timeline extends React.Component {
+
+  componentDidMount(){
+    //Change active tabs
+    $('#aboutMe').removeClass( "active" );
+    $('#timeLine').addClass( "active" );
+
+  }
 
    render() {
       return (
        	<div>
-       		<div className="container">
+               		<div className="container">
     <div className="page-header text-center">
         <h1 id="timeline">Timeline 2.0</h1>
     </div>
