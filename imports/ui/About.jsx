@@ -18,16 +18,8 @@ export default class About extends React.Component {
 		                <div className="row">
 		                    <div className="col-md-12">
 		                        <div className="block">
-		                            <h2>About Company</h2>
-		                            <ol className="breadcrumb">
-		                                <li>
-		                                    <a href="index.html">
-		                                        <i className="ion-ios-home"></i>
-		                                        Home
-		                                    </a>
-		                                </li>
-		                                <li className="active">About</li>
-		                            </ol>
+		                            <h2>About Me</h2>
+		                            
 		                        </div>
 		                    </div>
 		                </div>
@@ -42,12 +34,12 @@ export default class About extends React.Component {
                     </div>
                     <div className="col-md-6">
                         <div className="block">
-                            <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">Why We are Different</h3>
+                            <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">Who am I</h3>
                             <p  className="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequun. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                I am the best dog in the world. I have fluffy white hair to keep you warm in winter, hot in summer. 
                             </p>
                             <p  className="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
-                                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+                                I am so cute so everyone will love me. 人見人愛 車見車載 汽水樽見到都會打開蓋！！ 以下省略10000字。。。
                             </p>
                             
                         </div>
