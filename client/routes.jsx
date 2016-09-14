@@ -57,7 +57,8 @@ FlowRouter.route('/registerDev',{
 		mount(MainLayout,{
 			content:(<Register />)
 		})
-	}
+	},
+	triggersEnter: [checkGuestLogin]
 
 });
 FlowRouter.route('/login',{
@@ -65,7 +66,8 @@ FlowRouter.route('/login',{
 		mount(MainLayout,{
 			content:(<Login />)
 		})
-	}
+	},
+	triggersEnter: [checkGuestLogin]
 
 });
 
@@ -78,3 +80,8 @@ FlowRouter.route('/logout',{
 
 });
 
+function checkGuestLogin(){
+	if(Meteor.userId()){
+		FlowRouter.go('/');
+	}
+}

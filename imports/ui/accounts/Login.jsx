@@ -46,6 +46,9 @@ export default Login = React.createClass({
 			            </div>
 			        </form>
 			        </div>
+			        <br />
+			    <br /><br />
+			    <br />
 			    </div>
 			</div>
 		);	
