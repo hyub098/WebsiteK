@@ -143,10 +143,13 @@ a:hover {
   background: url('background.jpg') no-repeat 50%;
   background-size: cover;
   background-attachment: fixed;
+    background-repeat:   no-repeat;
+    background-position: center center;  
   padding: 230px 0;
   color: #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   position: relative;
+     
 }
 #hero-area:before {
   content: '';
@@ -1058,7 +1061,7 @@ article {
   background: #fff;
 }
 .navbar-toggle {
-  background-image: '';
+
   background: #000;
 }
 .dropdown-menu > ul {

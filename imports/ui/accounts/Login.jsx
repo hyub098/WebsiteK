@@ -25,6 +25,11 @@ export default Login = React.createClass({
 		return (
 			<div className="container">
 			    <div className="row">
+			    <br />
+			    <br />
+			    <br />
+			    <br />
+			    <br />
 			        <div className="col-md-offset-5 col-md-3">
 			        <form className="form-login" onSubmit={this.onSubmit}>
 			            <div className="form-login">

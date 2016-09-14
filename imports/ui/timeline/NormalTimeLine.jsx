@@ -3,32 +3,13 @@ import React, { Component } from 'react';
 
 Timeline = new Mongo.Collection("timeline");
 
-export default class Timeline extends React.Component {
+export default class NormalTimeLine extends React.Component {
 
-  componentDidMount(){
-    //Change active tabs
-    $('#aboutMe').removeClass( "active" );
-    $('#timeLine').addClass( "active" );
-
-  }
-
+ 
    render() {
       return (
        	<div>
-                    <section className="global-page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="block">
-                                <h2>My Achievements</h2>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
+                 
 
 
 
