@@ -30,7 +30,7 @@ export default class HomePage extends React.Component {
                 <span className="label label-info tags">html5</span> 
                 <span className="label label-info tags">css3</span>
                 <span className="label label-info tags">jquery</span>
-                <span className="label label-info tags">bootstrap3</span>
+
               </p>
             </div>
         
