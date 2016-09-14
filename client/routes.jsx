@@ -8,8 +8,18 @@ import HomePage from '../imports/ui/HomePage.jsx';
 import About from '../imports/ui/About.jsx';
 
 import Timeline from '../imports/ui/Timeline.jsx';
+import Contact from '../imports/ui/Contact.jsx';
 
-import Register from '../imports/ui/accounts/Register.jsx';
+
+
+FlowRouter.route('/timeline',{
+	action(){
+		mount(MainLayout,{
+			content:(<Timeline />)
+		})
+	}
+
+});import Register from '../imports/ui/accounts/Register.jsx';
 import Login from '../imports/ui/accounts/Login.jsx';
 
 
@@ -34,6 +44,15 @@ FlowRouter.route('/timeline',{
 	action(){
 		mount(MainLayout,{
 			content:(<Timeline />)
+		})
+	}
+
+});
+
+FlowRouter.route('/contact',{
+	action(){
+		mount(MainLayout,{
+			content:(<Contact />)
 		})
 	}
 
