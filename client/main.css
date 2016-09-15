@@ -1400,7 +1400,7 @@ a.boxedit{
 /*
   Admin time line
 */
-.newButton{
+a.newButton{
   float: right;
   margin-top: -5%;
   background-color: #02BDD5;
@@ -1408,3 +1408,10 @@ a.boxedit{
 
 
 }
+
+
+/*
+    New time line
+*/
+
+.position-relative { position: relative; }

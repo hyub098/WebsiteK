@@ -34,7 +34,7 @@ export default class AdminTimeLine extends React.Component {
                 <div className="page-header text-center">
                     <h1 id="timeline">Timeline</h1>
                     <div className="row">
-                        <button type="button" className="btn btn-default newButton">New</button>
+                        <a href="/newtimeline" className="btn btn-default newButton">New</a>
                     </div>
                 </div>
                 
