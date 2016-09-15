@@ -1338,3 +1338,70 @@ article {
             right: auto;
         }
 }
+
+.timeline-date{
+  float: right;
+  bottom: 0;
+}
+
+
+a.boxclose{
+    float:right;
+
+    margin-right:-30px;
+    cursor:pointer;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    /*display: inline-block;*/
+    line-height: 0px;
+    padding: 11px 3px;    
+    float:left;
+    margin-left:0px;
+    margin-top:-5px;
+    z-index: 1;
+    position: absolute;
+    top: 0;   
+
+}
+
+.boxclose:before {
+  content: url("cancel.png");
+}
+
+a.boxedit{
+    float:right;
+    margin-right:-30px;
+    cursor:pointer;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    /*display: inline-block;*/
+    line-height: 0px;
+    padding: 11px 3px;    
+    float:left;
+    margin-left:50px;
+    margin-top:-5px;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+
+}
+
+.boxedit:before {
+    content: url("pencil.png");
+}
+
+/*
+  Admin time line
+*/
+.newButton{
+  float: right;
+  margin-top: -5%;
+  background-color: #02BDD5;
+  color: white;
+
+
+}
