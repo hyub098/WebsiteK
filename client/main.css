@@ -1345,7 +1345,7 @@ article {
 }
 
 
-a.boxclose{
+.boxclose{
     float:right;
 
     margin-right:-30px;
@@ -1362,7 +1362,9 @@ a.boxclose{
     margin-top:-5px;
     z-index: 1;
     position: absolute;
-    top: 0;   
+    top: 0;
+    border:none;
+    background:none;
 
 }
 
@@ -1387,6 +1389,7 @@ a.boxedit{
     z-index: 1;
     position: absolute;
     top: 0;
+
 
 }
 

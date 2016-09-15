@@ -5,6 +5,27 @@ import React, { Component } from 'react';
 
 export default class AdminTimeLine extends React.Component {
 
+    componentDidMount(){
+
+
+        
+
+        //initialize confirm prompt when user click delete
+          $('[data-toggle=confirmation]').confirmation({
+
+            //when user click yes run remove function
+            onConfirm: function() {
+            
+
+                //save
+                alert("removed");
+       
+              },
+              placement:"right"
+            });
+
+    }
+
  
    render() {
       return (
@@ -25,11 +46,20 @@ export default class AdminTimeLine extends React.Component {
                       <div className="timeline-panel">
 
                         <div className="timeline-heading">
-
-                          <img className="img-responsive" src="pikachu.jpg"  style={{"width":"100%","height":500}}/> 
-                          <a className="boxclose" id="boxclose" ></a>
-                        <a className="boxedit" id="boxedit" ></a>
-
+                            <img className="img-responsive" src="pikachu.jpg"  style={{"width":"100%","height":500}}/> 
+                            
+                            <button 
+                                className="boxclose" id="boxclose" 
+                                data-toggle="confirmation"
+                                data-btn-ok-label="Yes!" 
+                                data-btn-cancel-label="No!"
+                                data-title="Confirm to remove?" 
+                                data-singleton="true" 
+                                data-popout="true"
+                                data-placement="top"
+                                style={{"border":"none","background":"none"}}        
+                            ></button>
+                            <a className="boxedit" id="boxedit" ></a>
                         </div>
                         <div className="timeline-body">
                           <p>皮卡丘的出現啟發了我。I gotta catch'em all! </p>
