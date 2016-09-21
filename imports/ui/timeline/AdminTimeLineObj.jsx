@@ -5,6 +5,28 @@ import AdminTimeLine from './AdminTimeLine.jsx';
 
 
 export default class TimeLineObj extends React.Component {
+	componentDidMount(){
+
+		itemId = this.props.item._id;
+
+
+        //initialize confirm prompt when user click delete
+          $('[data-toggle=confirmation]').confirmation({
+
+            //when user click yes run remove function
+            onConfirm: function() {
+            
+
+                //remove
+                Meteor.call('removeTimeLineItem',itemId,function(error,response){
+                	console.log("removed");
+                });
+       
+              },
+              placement:"right"
+            });
+
+    }
 
  
 

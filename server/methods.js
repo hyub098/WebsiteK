@@ -6,5 +6,8 @@ Meteor.methods({
 			date : date,
 			createdAt : new Date()
 		});
+	},
+	removeTimeLineItem(id){
+		Timeline.remove(id);
 	}
 });
