@@ -7,9 +7,7 @@ import AdminTimeLine from './AdminTimeLine.jsx';
 export default class TimeLineObj extends React.Component {
 	componentDidMount(){
 
-		itemId = this.props.item._id;
-
-
+		var itemId = this.props.item._id;
         //initialize confirm prompt when user click delete
           $('[data-toggle=confirmation]').confirmation({
 
@@ -38,7 +36,7 @@ export default class TimeLineObj extends React.Component {
 	    return (
 	       	<li  className={classVar}>
 
-	                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+	                    <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record invert" rel="tooltip" title={this.props.item.date}></i></a></div>
 	                      <div className="timeline-panel">
 
 	                        <div className="timeline-heading">

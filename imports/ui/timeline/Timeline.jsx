@@ -8,6 +8,7 @@ export default class Timeline extends React.Component {
 
  
   checkLogin(){
+    //check to return admin or normal time line
     if (Meteor.user()){
         return <AdminTimeLine />;
     }

@@ -1,89 +1,96 @@
 import React, { Component } from 'react';
 
-import TimeLineObj from './TimeLineObj.jsx';
+import AdminTimeLineObj from './AdminTimeLineObj.jsx';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 
 export default class AdminTimeLine extends TrackerReact(React.Component) {
 
 
-  constructor(){
-      super();
+    constructor(){
+          super();
 
-      this.state = {
+          this.state = {
 
-        subscription:{
-                  items:Meteor.subscribe('allTimeline')
-        }
-    };
-  }
+            subscription:{
+                      items:Meteor.subscribe('allTimeline')
+            }
+        };
+    }
 
-  componentWillUnmount(){
-    this.state.subscription.items.stop();
-  }
-
-    componentDidMount(){
-
-
-
-        //initialize confirm prompt when user click delete
-          $('[data-toggle=confirmation]').confirmation({
-
-            //when user click yes run remove function
-            onConfirm: function() {
-            
-
-                //save
-                alert("removed");
-       
-              },
-              placement:"right"
-            });
-
+    componentWillUnmount(){
+        this.state.subscription.items.stop();
     }
 
     getItems(){
-        //TODO: ordering
+        //TODO: ordering by date
         var allItems = Timeline.find().fetch();
-        allItems.reverse();
-        // console.log(allItems);
-        for(var i =0;i< allItems.length;i++){
-            allItems[i].count = i;
-            console.log(allItems[i]);
+        if(allItems.length < 1){
+            return [];
         }
+       
+        //add an attribute in actual date format
+        for(var i =0;i< allItems.length;i++){
+
+            //split the date string
+            var dateStr = allItems[i].date.split('/');
+
+            //construct the date variable. Year-Month-day. Month starts counting from 0 so subtract 1 before intializing.
+            allItems[i].dateVar = new Date(dateStr[2],parseInt(dateStr[0])-1,dateStr[1]);
+
+        }  
+
+        //sort by date. 
+        allItems = this.bubbleSort(allItems);
+
+        for(var i =0;i< allItems.length;i++){
+            //add counter to determine the className later
+            allItems[i].count = i;
+        }
+        //latest one go first.
+        allItems.reverse();
         return allItems;
+    }
+
+    bubbleSort(arr){
+        //bubble sort algorithm to sort date
+        var len = arr.length;
+        for (var i = len-1; i>=0; i--){
+         for(var j = 1; j<=i; j++){
+           if(arr[j-1].dateVar.getTime() >arr[j].dateVar.getTime()){
+               var temp = arr[j-1];
+               arr[j-1] = arr[j];
+               arr[j] = temp;
+            }
+         }
+       }
+       return arr;
     }
 
  
    render() {
-        let num = 1;
+
         let items=this.getItems();
-      return (
-       	<div>
-             
-
-                        
-            <div className="container">
-                <div className="page-header text-center">
-                    <h1 id="timeline">Timeline</h1>
-                    <div className="row">
-                        <a href="/newtimeline" className="btn btn-default newButton">New</a>
-                    </div>
-                </div>
-                
-                <ul className="timeline">
-                     {  items.map( (item,num) => {
-                           return  (
-
-                                        <TimeLineObj item={item} num={num}/>
-
+        return (
+           	<div>                  
+                <div className="container">
+                    <div className="page-header text-center">
+                        <h1 id="timeline">Timeline</h1>
+                        <div className="row">
+                            <a href="/newtimeline" className="btn btn-default newButton">New</a>
+                        </div>
+                    </div>           
+                    <ul className="timeline">
+                        {  
+                            items.map( (item) => {
+                                return (
+                                        <AdminTimeLineObj item={item} key={item._id}/>
                                 )})
-                    }
- 
-                </ul>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-      );
+        );
    }
 }
 
