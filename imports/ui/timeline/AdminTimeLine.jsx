@@ -42,15 +42,22 @@ export default class AdminTimeLine extends TrackerReact(React.Component) {
 
     }
 
-    items(){
+    getItems(){
         //TODO: ordering
-        return Timeline.find().fetch();
+        var allItems = Timeline.find().fetch();
+        allItems.reverse();
+        // console.log(allItems);
+        for(var i =0;i< allItems.length;i++){
+            allItems[i].count = i;
+            console.log(allItems[i]);
+        }
+        return allItems;
     }
 
  
    render() {
         let num = 1;
-        let items=this.items();
+        let items=this.getItems();
       return (
        	<div>
              
