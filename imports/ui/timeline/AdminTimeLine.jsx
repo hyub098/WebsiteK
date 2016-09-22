@@ -23,7 +23,7 @@ export default class AdminTimeLine extends TrackerReact(React.Component) {
     }
 
     getItems(){
-        //TODO: ordering by date
+        
         var allItems = Timeline.find().fetch();
         if(allItems.length < 1){
             return [];
