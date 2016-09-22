@@ -96,8 +96,6 @@ export default class NewTimeline extends React.Component {
 			        </div>
 			    </div>
 
-			    <img src='' id="test" />
-
 
 			    <button type="submit" className="btn btn-default">Submit</button>
 			</form>
