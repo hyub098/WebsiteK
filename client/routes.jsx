@@ -16,6 +16,7 @@ import Register from '../imports/ui/accounts/Register.jsx';
 import Login from '../imports/ui/accounts/Login.jsx';
 import Logout from '../imports/ui/accounts/Logout.jsx';
 
+import AdminConsole from '../imports/ui/admin/AdminConsole.jsx';
 
 
 
@@ -89,6 +90,15 @@ FlowRouter.route('/newtimeline',{
 	triggersEnter: [checkUserLogin]
 
 });
+FlowRouter.route('/admin',{
+	action(){
+		mount(MainLayout,{
+			content:(<AdminConsole />)
+		})
+	},
+	triggersEnter: [checkUserLogin]
+});
+
 function checkGuestLogin(){
 	if(Meteor.userId()){
 		FlowRouter.go('/');
@@ -100,3 +110,4 @@ function checkUserLogin(){
 		FlowRouter.go('/');
 	}
 }
+
