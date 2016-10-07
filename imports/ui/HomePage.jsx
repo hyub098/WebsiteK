@@ -4,6 +4,7 @@ export default class HomePage extends React.Component {
   
   componentDidMount(){
     //Change active tabs
+    //useless comment
     $('#timeLine').removeClass( "active" );
     $('#aboutMe').addClass( "active" );
 
