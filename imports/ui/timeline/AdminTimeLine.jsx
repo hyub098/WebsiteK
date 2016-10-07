@@ -1,130 +1,96 @@
 import React, { Component } from 'react';
 
+import AdminTimeLineObj from './AdminTimeLineObj.jsx';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 
-
-export default class AdminTimeLine extends React.Component {
-
-    componentDidMount(){
+export default class AdminTimeLine extends TrackerReact(React.Component) {
 
 
+    constructor(){
+          super();
+
+          this.state = {
+
+            subscription:{
+                      items:Meteor.subscribe('allTimeline')
+            }
+        };
+    }
+
+    componentWillUnmount(){
+        this.state.subscription.items.stop();
+    }
+
+    getItems(){
         
-
-        //initialize confirm prompt when user click delete
-          $('[data-toggle=confirmation]').confirmation({
-
-            //when user click yes run remove function
-            onConfirm: function() {
-            
-
-                //save
-                alert("removed");
+        var allItems = Timeline.find().fetch();
+        if(allItems.length < 1){
+            return [];
+        }
        
-              },
-              placement:"right"
-            });
+        //add an attribute in actual date format
+        for(var i =0;i< allItems.length;i++){
 
+            //split the date string
+            var dateStr = allItems[i].date.split('/');
+
+            //construct the date variable. Year-Month-day. Month starts counting from 0 so subtract 1 before intializing.
+            allItems[i].dateVar = new Date(dateStr[2],parseInt(dateStr[0])-1,dateStr[1]);
+
+        }  
+
+        //sort by date. 
+        allItems = this.bubbleSort(allItems);
+
+        for(var i =0;i< allItems.length;i++){
+            //add counter to determine the className later
+            allItems[i].count = i;
+        }
+        //latest one go first.
+        allItems.reverse();
+        return allItems;
+    }
+
+    bubbleSort(arr){
+        //bubble sort algorithm to sort date
+        var len = arr.length;
+        for (var i = len-1; i>=0; i--){
+         for(var j = 1; j<=i; j++){
+           if(arr[j-1].dateVar.getTime() >arr[j].dateVar.getTime()){
+               var temp = arr[j-1];
+               arr[j-1] = arr[j];
+               arr[j] = temp;
+            }
+         }
+       }
+       return arr;
     }
 
  
    render() {
-      return (
-       	<div>
-            <div className="container">
-                <div className="page-header text-center">
-                    <h1 id="timeline">Timeline</h1>
-                    <div className="row">
-                        <button type="button" className="btn btn-default newButton">New</button>
-                    </div>
+
+        let items=this.getItems();
+        return (
+           	<div>                  
+                <div className="container">
+                    <div className="page-header text-center">
+                        <h1 id="timeline">Timeline</h1>
+                        <div className="row">
+                            <a href="/newtimeline" className="btn btn-default newButton">New</a>
+                        </div>
+                    </div>           
+                    <ul className="timeline">
+                        {  
+                            items.map( (item) => {
+                                return (
+                                        <AdminTimeLineObj item={item} key={item._id}/>
+                                )})
+                        }
+                    </ul>
                 </div>
-                
-                <ul className="timeline">
-                    
-                    <li  className="timeline-inverted">
-
-                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                      <div className="timeline-panel">
-
-                        <div className="timeline-heading">
-                            <img className="img-responsive" src="pikachu.jpg"  style={{"width":"100%","height":500}}/> 
-                            
-                            <button 
-                                className="boxclose" id="boxclose" 
-                                data-toggle="confirmation"
-                                data-btn-ok-label="Yes!" 
-                                data-btn-cancel-label="No!"
-                                data-title="Confirm to remove?" 
-                                data-singleton="true" 
-                                data-popout="true"
-                                data-placement="top"
-                                style={{"border":"none","background":"none"}}        
-                            ></button>
-                            <a className="boxedit" id="boxedit" ></a>
-                        </div>
-                        <div className="timeline-body">
-                          <p>皮卡丘的出現啟發了我。I gotta catch'em all! </p>
-                          <p className="timeline-date">2016-09-15</p>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                      <div className="timeline-panel">
-                        <div className="timeline-heading">
-                          <img className="img-responsive" src="question.jpg"  style={{"width":"100%","height":500}} />            
-                        </div>
-                        <div className="timeline-body">
-                          <p>I started to question my life, I can't continue this way.</p>
-                        </div>         
-                      </div>
-                    </li>
-                    
-                    <li  className="timeline-inverted">
-                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                      <div className="timeline-panel">
-                        <div className="timeline-heading">
-                          <img className="img-responsive" src="snake.jpg"  style={{"width":"100%","height":500}}/>
-                          
-                        </div>
-                        <div className="timeline-body">
-                          <p>And I became so lazy.</p>
-                          
-                        </div>
-                        
-                      </div>
-                    </li>
-                    <li>
-                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                      <div className="timeline-panel">
-                        <div className="timeline-heading">
-                          <img className="img-responsive" src="home.jpg"  style={{"width":"100%","height":500}} />
-                          
-                        </div>
-                        <div className="timeline-body">
-                          <p>Then, I start living happily in their house.</p>
-                          
-                        </div>
-                        
-                      </div>
-                    </li>
-                    
-                    <li  className="timeline-inverted">
-                      <div className="timeline-badge primary"><a><i className="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                      <div className="timeline-panel">
-                        <div className="timeline-heading">
-                          <img className="img-responsive" src="caught.jpg"  style={{"width":"100%","height":500}}/>
-                          
-                        </div>
-                        <div className="timeline-body">
-                          <p>I was caught by brothers of three men.</p>
-                          
-                        </div>
-                      </div>
-                    </li>      
-                </ul>
             </div>
-        </div>
-      );
+        );
    }
 }
 

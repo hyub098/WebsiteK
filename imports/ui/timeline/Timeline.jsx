@@ -6,14 +6,9 @@ import AdminTimeLine from './AdminTimeLine.jsx';
 
 export default class Timeline extends React.Component {
 
-  componentDidMount(){
-    //Change active tabs
-    $('#aboutMe').removeClass( "active" );
-    $('#timeLine').addClass( "active" );
-
-  }
-
+ 
   checkLogin(){
+    //check to return admin or normal time line
     if (Meteor.user()){
         return <AdminTimeLine />;
     }

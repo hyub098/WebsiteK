@@ -9,6 +9,7 @@ import About from '../imports/ui/About.jsx';
 
 import Timeline from '../imports/ui/timeline/Timeline.jsx';
 import Contact from '../imports/ui/Contact.jsx';
+import NewTimeLine from '../imports/ui/timeline/NewTimeLine.jsx';
 
 
 import Register from '../imports/ui/accounts/Register.jsx';
@@ -79,9 +80,23 @@ FlowRouter.route('/logout',{
 	}
 
 });
+FlowRouter.route('/newtimeline',{
+	action(){
+		mount(MainLayout,{
+			content:(<NewTimeLine />)
+		})
+	},
+	triggersEnter: [checkUserLogin]
 
+});
 function checkGuestLogin(){
 	if(Meteor.userId()){
+		FlowRouter.go('/');
+	}
+}
+
+function checkUserLogin(){
+	if(!Meteor.userId()){
 		FlowRouter.go('/');
 	}
 }
