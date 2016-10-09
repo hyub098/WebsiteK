@@ -3,6 +3,15 @@ import React, { Component } from 'react';
     Content = new Mongo.Collection("content");
 
 export default class AdminConsole extends React.Component {
+
+    constructor(){
+        super();
+
+        //bind the function to 'this'
+        this.onSubmit = this.onSubmit.bind(this);
+
+
+    }
   
     onSubmit(e) {
             e.preventDefault();
@@ -20,7 +29,9 @@ export default class AdminConsole extends React.Component {
                 complete: false,
                 createdAt: new Date()
             });*/
-            console.log(this);
+
+            //display the reference values
+            console.log(this.refs.title.value);
             }
  
    render() {
@@ -28,7 +39,7 @@ export default class AdminConsole extends React.Component {
           <div>
             
 
-            /*tab of each page*/
+            {/*tab of each page*/}
             <div className="container">
               <h2>Pages</h2>
               <ul className="nav nav-tab nav-justified">
@@ -41,17 +52,17 @@ export default class AdminConsole extends React.Component {
                 <div id="home" className="tab-pane fade in active">
                     <h3>Home</h3>
                     <p>Title</p>
-                    <input type="text" id="htitle" placeholder="username or email"/>
+                    <input type="text" ref="title" id="title" placeholder="username or email"/>
                     <p>Occupation</p>
                     <input type="text" id="hjob" placeholder="username or email"/>
                     <p>Description</p>
                     <input type="text" id="homeDesc" placeholder="username or email"/>
-                    /*input for background img*/
+                    {/*input for background img*/}
                     <p>Background Image</p>
                 </div>
                 <div id="about" className="tab-pane fade">
                     <h3>About</h3>
-                    //input for img
+                    {/*input for img*/}
                     <p>Image</p>
                     <p>Description</p>
                     <input type="text" id="aboutDesc" placeholder="username or email"/>
@@ -66,15 +77,15 @@ export default class AdminConsole extends React.Component {
                     <input type="text" id="cemail" placeholder="username or email"/>
                 </div>
               </div>
-              /*button to save content into the database*/
+              {/*button to save content into the database*/}
                 <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
                 </form>
             </div>
 
-            /*button to add img*/
+            {/*button to add img*/}
             <button type="button" onClick="import()">Import</button>
 
-            /*button to remove img*/
+            {/*button to remove img*/}
             <button type="button" onClick="remove()">Remove</button>
             
             
