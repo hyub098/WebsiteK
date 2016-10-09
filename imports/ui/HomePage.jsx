@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+HomeDesc = new Mongo.Collection("homeDesc");
+
+
 export default class HomePage extends React.Component {
   
   componentDidMount(){
