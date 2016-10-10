@@ -17,17 +17,17 @@ export default class AdminConsole extends React.Component {
             e.preventDefault();
             //array to store everything
             var pageContents = [
-            this.refs.title.value, 
-            this.refs.job.value,
-            this.refs.homeDesc.value,
-            "background img",
-            "about img",
-            this.refs.aboutDesc.value,
-            this.refs.mobile.value,
-            this.refs.address.value,
-            this.refs.email.value
+                this.refs.title.value, 
+                this.refs.job.value,
+                this.refs.homeDesc.value,
+                "background img",
+                "about img",
+                this.refs.aboutDesc.value,
+                this.refs.mobile.value,
+                this.refs.address.value,
+                this.refs.email.value
             ];
-
+            var text = "hi";
             //display the reference values
             //console.log(text);
             //console.log(this.refs.job.value);
@@ -38,11 +38,12 @@ export default class AdminConsole extends React.Component {
             //console.log(this.refs.mobile.value);
             //console.log(this.refs.address.value);
             //console.log(this.refs.email.value);
-            Contents.insert({
-            text: "hi",
-            createdAt : new Date()
-            });
-            }
+            
+                Meteor.call('updateAllPages',text,function(error, response){
+                FlowRouter.go('/admin');
+                    });
+                
+        }
  
    render() {
       return (
