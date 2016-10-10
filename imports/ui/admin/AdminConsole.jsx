@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-    Contents = new Mongo.Collection("contents");
+    Home = new Mongo.Collection("home");
+    About = new Mongo.Collection("about");
+    Contact = new Mongo.Collection("contact");
+    //Contents = new Mongo.Collection("contents");
 
 export default class AdminConsole extends React.Component {
 
@@ -9,6 +12,12 @@ export default class AdminConsole extends React.Component {
 
         //bind the function to 'this'
         this.onSubmit = this.onSubmit.bind(this);
+        this.state = {
+
+            subscription:{
+                      items:Meteor.subscribe('adminContent')
+            }
+        };
 
 
     }
@@ -16,32 +25,20 @@ export default class AdminConsole extends React.Component {
     onSubmit(e) {
             e.preventDefault();
             //array to store everything
-            var pageContents = [
-                this.refs.title.value, 
-                this.refs.job.value,
-                this.refs.homeDesc.value,
-                "background img",
-                "about img",
-                this.refs.aboutDesc.value,
-                this.refs.mobile.value,
-                this.refs.address.value,
-                this.refs.email.value
-            ];
-            var text = "hi";
-            //display the reference values
-            //console.log(text);
-            //console.log(this.refs.job.value);
-            //console.log(this.refs.homeDesc.value);
-            //console.log(this.refs.aboutDesc.value);
-            //home background img
-            //about img
-            //console.log(this.refs.mobile.value);
-            //console.log(this.refs.address.value);
-            //console.log(this.refs.email.value);
+                var homeTitle = this.refs.title.value;
+                var job = this.refs.job.value
+                var homeDesc = this.refs.homeDesc.value
+                var bgImg = "background img"
+                var aboutImg = "about img"
+                var aboutDesc = this.refs.aboutDesc.value
+                var mobile = this.refs.mobile.value
+                var address = this.refs.address.value
+                var email = this.refs.email.value
             
-                Meteor.call('updateAllPages',text,function(error, response){
-                FlowRouter.go('/admin');
-                    });
+                Meteor.call('updateHome',homeTitle,job,homeDesc,bgImg,function(error, response){});
+                Meteor.call('updateAbout',aboutImg,aboutDesc,function(error, response){});
+                Meteor.call('updateContact',mobile,address,email,function(error, response){});
+
                 
         }
  
