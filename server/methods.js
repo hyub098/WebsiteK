@@ -11,7 +11,7 @@ Meteor.methods({
 		Timeline.remove(id);
 	},
 	updateHome(title,job,homeDesc,bgimg){
-		Home.update({$set:{
+		Home.update({_id : "homecontent"},{$set:{
 			title : title,
 			job : job,
 			homeDesc : homeDesc,
@@ -20,14 +20,14 @@ Meteor.methods({
 		}});
 	},
 	updateAbout(aboutimg,aboutDesc){
-		About.update({$set:{
+		About.update({_id : "aboutcontent"},{$set:{
 			aboutimg : aboutimg,
 			aboutDesc : aboutDesc,
 			createdAt : new Date()
 		}});
 	},
 	updateContact(mobile,address,email){
-		Contact.update({$set:{
+		Contact.update({_id : "contactcontent"},{$set:{
 			mobile : mobile,
 			address : address,
 			email : email,

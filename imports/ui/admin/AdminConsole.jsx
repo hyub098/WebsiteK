@@ -37,22 +37,28 @@ export default class AdminConsole extends React.Component {
                 var address = this.refs.address.value;
                 var email = this.refs.email.value;
 
-                //wait for img to finish loading
+                function imgNull(img) {
+                        if(img==null){
+                            img = ""; //no img
+                        }else{
+                            reader.readAsDataURL(img);
+                        }
+                    }
+
+                imgNull(bgImg);
                 reader.onloadend = function () {
+                imgNull(aboutImg);
+            }
+                //wait for img to finish loading
+                reader.onloadend = function () {}
                 Meteor.call('updateHome',homeTitle,job,homeDesc,bgImg,function(error, response){});
                 Meteor.call('updateAbout',aboutImg,aboutDesc,function(error, response){});
                 Meteor.call('updateContact',mobile,address,email,function(error, response){});
                 FlowRouter.go('/');
-                }
+                
             }
 
-    imgNull(img) {
-        if(img===null){
-            return ""; //no img
-        }else{
-            reader.readAsDataURL(img);
-        }
-    }
+    
  
    render() {
       return (
@@ -60,6 +66,9 @@ export default class AdminConsole extends React.Component {
            
             {/*tab of each page*/}
             <div className="container">
+                <br/>
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <br/>
@@ -84,7 +93,7 @@ export default class AdminConsole extends React.Component {
                         <div className="fileinput-new thumbnail" style={{width: 300, height: 300}}>
                             <img data-src="holder.js/100%x100%"/>
                         </div>
-                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"max-width": 300,"max-height": 300}}></div>
+                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"maxWidth": 300,"maxHeight": 300}}></div>
                         <div>
                             <span className="btn btn-default btn-file">
                                 <span className="fileinput-new">Select image</span>
@@ -103,7 +112,7 @@ export default class AdminConsole extends React.Component {
                         <div className="fileinput-new thumbnail" style={{width: 300, height: 300}}>
                             <img data-src="holder.js/100%x100%"/>
                         </div>
-                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"max-width": 300,"max-height": 300}}></div>
+                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"maxWidth": 300,"maxHeight": 300}}></div>
                         <div>
                             <span className="btn btn-default btn-file">
                                 <span className="fileinput-new">Select image</span>
@@ -122,7 +131,7 @@ export default class AdminConsole extends React.Component {
                     <input type="text" ref="mobile" defaultValue=""/>
                     <p>Address</p>
                     <input type="text" ref="address" defaultValue=""/>
-                    <p>Email</p>defaultValue
+                    <p>Email</p>
                     <input type="text" ref="email" defaultValue=""/>
                 </div>
               </div>
