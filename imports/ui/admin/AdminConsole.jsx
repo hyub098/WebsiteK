@@ -57,14 +57,13 @@ export default class AdminConsole extends React.Component {
    render() {
       return (
           <div>
-            
-
+           
             {/*tab of each page*/}
             <div className="container">
-            <br/>
-            <br/>
-              <h2>Pages</h2>
-              <ul className="nav nav-tab nav-justified">
+                <br/>
+                <br/>
+                <br/>
+                <ul className="nav nav-tab nav-justified">
                 <li className="active"><a data-toggle="tab" href="#home">Home</a></li>
                 <li><a data-toggle="tab" href="#about">About</a></li>
                 <li><a data-toggle="tab" href="#contact">Contact</a></li>
@@ -73,13 +72,12 @@ export default class AdminConsole extends React.Component {
               <div className="tab-content">
                 <div id="home" className="tab-pane fade in active">
                     <h3>Home</h3>
-                    <input type="text" value=""/>
                     <p>Title</p>
-                    <input type="text" ref="title" value=""/>
+                    <input type="text" ref="title" defaultValue=""/>
                     <p>Occupation</p>
-                    <input type="text" ref="job" value=""/>
+                    <input type="text" ref="job" defaultValue=""/>
                     <p>Description</p>
-                    <input type="text" ref="homeDesc" value=""/>
+                    <input type="text" ref="homeDesc" defaultValue=""/>
                     {/*input for background img*/}
                     <p>Background Image</p>
                     <div className="fileinput fileinput-new" data-provides="fileinput">
@@ -116,16 +114,16 @@ export default class AdminConsole extends React.Component {
                         </div>
                     </div>
                     <p>Description</p>
-                    <input type="text" ref="aboutDesc" value=""/>
+                    <input type="text" ref="aboutDesc" defaultValue=""/>
                 </div>
                 <div id="contact" className="tab-pane fade">
                     <h3>Contact</h3>
                     <p>Mobile</p>
-                    <input type="text" ref="mobile" value=""/>
+                    <input type="text" ref="mobile" defaultValue=""/>
                     <p>Address</p>
-                    <input type="text" ref="address" value=""/>
-                    <p>Email</p>
-                    <input type="text" ref="email" value=""/>
+                    <input type="text" ref="address" defaultValue=""/>
+                    <p>Email</p>defaultValue
+                    <input type="text" ref="email" defaultValue=""/>
                 </div>
               </div>
                 {/*button to save content into the database*/}
