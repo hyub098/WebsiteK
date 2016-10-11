@@ -22,39 +22,37 @@ export default class AdminConsole extends React.Component {
     }
   
     onSubmit(e) {
-            e.preventDefault();
-            //array to store everything
-            reader  = new FileReader();
+                e.preventDefault();
+                //array to store everything
+                reader  = new FileReader();
 
-            //validation for image
-            //   if (img ) {
-            //        if(img.type.indexOf('png') != -1 || img.type.indexOf('jpg') != -1  || img.type.indexOf('jpeg') != -1 || img.type.indexOf('gif') != -1 ){
-            //            reader.readAsDataURL(img); //reads the data as a URL
-            //        }   
-             //       else{
-            //            alert("upload image!");
-            //            return;
-            //        }
-            //   }
-            //   else{
-            //    alert("upload image!");
-            //    return;
-            //   }
+                //allow empty values
                 var homeTitle = this.refs.title.value;
                 var job = this.refs.job.value;
                 var homeDesc = this.refs.homeDesc.value;
                 var bgImg = this.refs.bgimg.files[0];
-                var aboutImg = "about img";
+                var aboutImg = this.refs.aimg.files[0];
                 var aboutDesc = this.refs.aboutDesc.value;
                 var mobile = this.refs.mobile.value;
                 var address = this.refs.address.value;
                 var email = this.refs.email.value;
-            
+
+                //wait for img to finish loading
+                reader.onloadend = function () {
                 Meteor.call('updateHome',homeTitle,job,homeDesc,bgImg,function(error, response){});
                 Meteor.call('updateAbout',aboutImg,aboutDesc,function(error, response){});
                 Meteor.call('updateContact',mobile,address,email,function(error, response){});
+                FlowRouter.go('/');
+                }
+            }
 
+    imgNull(img) {
+        if(img===null){
+            return ""; //no img
+        }else{
+            reader.readAsDataURL(img);
         }
+    }
  
    render() {
       return (
@@ -75,24 +73,25 @@ export default class AdminConsole extends React.Component {
               <div className="tab-content">
                 <div id="home" className="tab-pane fade in active">
                     <h3>Home</h3>
+                    <input type="text" value=""/>
                     <p>Title</p>
-                    <input type="text" ref="title" id="title" value=""/>
+                    <input type="text" ref="title" value=""/>
                     <p>Occupation</p>
-                    <input type="text" ref="job" id="hjob" value=""/>
+                    <input type="text" ref="job" value=""/>
                     <p>Description</p>
-                    <input type="text" ref="homeDesc" id="homeDesc" value=""/>
+                    <input type="text" ref="homeDesc" value=""/>
                     {/*input for background img*/}
                     <p>Background Image</p>
                     <div className="fileinput fileinput-new" data-provides="fileinput">
                         <div className="fileinput-new thumbnail" style={{width: 300, height: 300}}>
-                            <img data-src="holder.js/100%x100%" alt="..." />
+                            <img data-src="holder.js/100%x100%"/>
                         </div>
                         <div className="fileinput-preview fileinput-exists thumbnail" style={{"max-width": 300,"max-height": 300}}></div>
                         <div>
                             <span className="btn btn-default btn-file">
                                 <span className="fileinput-new">Select image</span>
                                 <span className="fileinput-exists">Change</span>
-                                <input type="file" ref="bgimg" id="bgimg"/>
+                                <input type="file" ref="bgimg" />
                             </span>
                             <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
@@ -102,37 +101,37 @@ export default class AdminConsole extends React.Component {
                     <h3>About</h3>
                     {/*input for img*/}
                     <p>Image</p>
-                    <img src="" alt="..." height="200" width="200"/>
-                    <div>
-                        <span className="btn btn-default btn-file">
-                            <span className="fileinput-new">Select image</span>
-                            <span className="fileinput-exists">Change</span>
-                            <input type="file" ref="aimg" id="aimg"/>
-                        </span>
-                        <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    <div className="fileinput fileinput-new" data-provides="fileinput">
+                        <div className="fileinput-new thumbnail" style={{width: 300, height: 300}}>
+                            <img data-src="holder.js/100%x100%"/>
+                        </div>
+                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"max-width": 300,"max-height": 300}}></div>
+                        <div>
+                            <span className="btn btn-default btn-file">
+                                <span className="fileinput-new">Select image</span>
+                                <span className="fileinput-exists">Change</span>
+                                <input type="file" ref="aimg"/>
+                            </span>
+                            <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
                     </div>
                     <p>Description</p>
-                    <input type="text" ref="aboutDesc" id="aboutDesc" value=""/>
+                    <input type="text" ref="aboutDesc" value=""/>
                 </div>
                 <div id="contact" className="tab-pane fade">
                     <h3>Contact</h3>
                     <p>Mobile</p>
-                    <input type="text" ref="mobile" id="cmobile" value=""/>
+                    <input type="text" ref="mobile" value=""/>
                     <p>Address</p>
-                    <input type="text" ref="address" id="caddress" value=""/>
+                    <input type="text" ref="address" value=""/>
                     <p>Email</p>
-                    <input type="text" ref="email" id="cemail" value=""/>
+                    <input type="text" ref="email" value=""/>
                 </div>
               </div>
-              {/*button to save content into the database*/}
+                {/*button to save content into the database*/}
                 <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
                 </form>
             </div>
-
-            {/*button to remove img*/}
-            <button type="button" onClick="remove()">Remove</button>
-            
-            
           </div>
 
       );

@@ -11,27 +11,27 @@ Meteor.methods({
 		Timeline.remove(id);
 	},
 	updateHome(title,job,homeDesc,bgimg){
-		Home.insert({
+		Home.update({$set:{
 			title : title,
 			job : job,
 			homeDesc : homeDesc,
 			bgimg : bgimg,
 			createdAt : new Date()
-		});
+		}});
 	},
 	updateAbout(aboutimg,aboutDesc){
-		About.insert({
+		About.update({$set:{
 			aboutimg : aboutimg,
 			aboutDesc : aboutDesc,
 			createdAt : new Date()
-		});
+		}});
 	},
 	updateContact(mobile,address,email){
-		Contact.insert({
+		Contact.update({$set:{
 			mobile : mobile,
 			address : address,
 			email : email,
 			createdAt : new Date()
-		});
+		}});
 	}
 });
