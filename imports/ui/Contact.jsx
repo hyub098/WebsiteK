@@ -3,6 +3,16 @@ import React, { Component } from 'react';
 
 export default class Contact extends React.Component {
   
+  constructor(){
+        super();
+        this.state = {
+            subscription:{
+                      items:Meteor.subscribe('contactContent')
+            }
+        };
+
+
+    }
   
  
    render() {

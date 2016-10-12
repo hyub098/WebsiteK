@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
 export default class About extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            subscription:{
+                      items:Meteor.subscribe('aboutContent')
+            }
+        };
+    }
   
   componentDidMount(){
     //Change active tabs

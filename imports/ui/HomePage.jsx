@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 
-HomeDesc = new Mongo.Collection("homeDesc");
-
 
 export default class HomePage extends React.Component {
   
+    constructor(){
+        super();
+        this.state = {
+            subscription:{
+                      items:Meteor.subscribe('homeContent')
+            }
+        };
+    }
+
   componentDidMount(){
     //Change active tabs
     //useless comment
