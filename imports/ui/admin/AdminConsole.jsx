@@ -67,6 +67,9 @@ export default class AdminConsole extends TrackerReact(React.Component) {
                 
             }
 
+            sayhi(){
+            console.log("hi");
+        }
     
  
    render() {
@@ -76,6 +79,7 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         if(homeInfo.length < 1){
             return (<div>Loading</div>);
         }
+
       return (
           <div>
             {/*tab of each page*/}
@@ -112,11 +116,13 @@ export default class AdminConsole extends TrackerReact(React.Component) {
                             <span className="btn btn-default btn-file">
                                 <span className="fileinput-new">Select image</span>
                                 <span className="fileinput-exists">Change</span>
-                                <input type="file" ref="bgimg"/>
+                                <input type="file" ref="bgimg" />
                             </span>
-                            <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput" onClick={this.sayhi()}>Remove</a>
                         </div>
                     </div>
+                    <img src={homeInfo[0].bgimg}/>
+                    <input type="text" ref="test" defaultValue={homeInfo[0].bgimg}/>
                 </div>
                 <div id="about" className="tab-pane fade">
                     <h3>About</h3>
