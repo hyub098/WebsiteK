@@ -10,12 +10,21 @@ Meteor.methods({
 	removeTimeLineItem(id){
 		Timeline.remove(id);
 	},
-	updateHome(title,job,homeDesc,bgimg){
-		Home.update({_id : "homecontent"},{$set:{
+	updateHome(id,title,job,homeDesc,bgimg){
+		Home.update(id,{$set:{
 			title : title,
 			job : job,
 			homeDesc : homeDesc,
 			bgimg : bgimg,
+			createdAt : new Date()
+		}});
+	},
+	updateHomeWithoutImg(id,title,job,homeDesc){
+
+		Home.update(id,{$set:{
+			title : title,
+			job : job,
+			homeDesc : homeDesc,
 			createdAt : new Date()
 		}});
 	},
