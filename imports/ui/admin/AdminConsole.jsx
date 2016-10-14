@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import AdminHomeConsole from './AdminHomeConsole.jsx';
+import AdminAboutConsole from './AdminAboutConsole.jsx';
+import AdminContactConsole from './AdminContactConsole.jsx';
 //import other components in here
 
 Home = new Mongo.Collection("home");
@@ -30,7 +32,20 @@ export default class AdminConsole extends TrackerReact(React.Component) {
     contact(){
         return Contact.find().fetch();
     }
-  
+    filldatabase(hl,al,cl){
+        if(hl < 1){
+            Meteor.call('fillHome',function(error, response){});
+        }
+        if(al < 1){
+            Meteor.call('fillAbout',function(error, response){});
+        }
+        if(cl < 1){
+            Meteor.call('fillContact',function(error, response){});
+        }
+        
+        
+        
+    }
 
     //This function can be put into each component separately and no need to write here.write
     //For more details, look into AdminHomeConsole.jsx
@@ -39,32 +54,53 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         //array to store everything
         reader  = new FileReader();
 
-       
+        var homeTitle = this.refs.title.value;
+        var job = this.refs.job.value;
+        var homeDesc = this.refs.homeDesc.value;
+        var bgImg = this.refs.bgimg.files[0];
         var aboutImg = this.refs.aimg.files[0];
         var aboutDesc = this.refs.aboutDesc.value;
         var mobile = this.refs.mobile.value;
         var address = this.refs.address.value;
         var email = this.refs.email.value;
 
-        function imgNull(img) {
-                if(img==null){
-                    img = ""; //no img
-                }else{
-                    reader.readAsDataURL(img);
-                }
-        }
-
-        imgNull(bgImg);
-
-        reader.onloadend = function () {
-            imgNull(aboutImg);
-        }
+        hid = this.home._id;
+        aid = this.about._id;
+        cid = this.contact._id;
 
         //wait for img to finish loading
         reader.onloadend = function () {}
 
-        Meteor.call('updateAbout',aboutImg,aboutDesc,function(error, response){});
-        Meteor.call('updateContact',mobile,address,email,function(error, response){});
+                //validation for image
+        if (bgImg ) {
+            if(bgImg.type.indexOf('png') != -1 || bgImg.type.indexOf('jpg') != -1  || bgImg.type.indexOf('jpeg') != -1 || bgImg.type.indexOf('gif') != -1 ){
+                reader.readAsDataURL(bgImg); //reads the data as a URL
+            }   
+            else{
+                //tell user to upload proper image and return the function
+                alert("upload image!");
+                return;
+            }
+            //wait for img to finish loading
+            reader.onloadend = function () {
+                //call a metoer method to update everything
+                Meteor.call('updateHome',hid,homeTitle,job,homeDesc,bgImg,function(error, response){
+                    // FlowRouter.go('/');
+                    console.log("updated with image");
+                });
+            }
+        }
+        else{
+
+            //call a different meteor method
+            Meteor.call('updateHomeWithoutImg',hid,homeTitle,job,homeDesc,function(error, response){
+                    // FlowRouter.go('/');
+                    console.log("updated WITHOUT image");
+            });
+        }
+
+        Meteor.call('updateAbout',aid,aboutImg,aboutDesc,function(error, response){});
+        Meteor.call('updateContact',cid,mobile,address,email,function(error, response){});
         FlowRouter.go('/');
                 
     }
@@ -73,12 +109,16 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         let homeInfo = this.home();
         let aboutInfo = this.about();
         let contactInfo = this.contact();
-        if(homeInfo.length < 1){
+        let count = 0;
+        if((homeInfo.length < 1 || aboutInfo.length < 1 || contactInfo.length < 1) && count < 200){
+            count++;
             return (<div>Loading</div>);
+        }else{
+            this.filldatabase(homeInfo.length,aboutInfo.length,contactInfo.length);
         }
 
       return (
-          <div>
+        <div>
 
             {/*tab of each page*/}
             <div className="container">
@@ -94,56 +134,28 @@ export default class AdminConsole extends TrackerReact(React.Component) {
                     <li><a data-toggle="tab" href="#contact">Contact</a></li>
                 </ul>
 
-              <div className="tab-content">
-                {/*
-                    Home component for the tab, remember to import other components at the top
-                    pass in the variable read from db, we call it "home"
-                */}
-                <AdminHomeConsole home={homeInfo[0]}/> {/*Child Component*/}
-                
-
-                {/*
-                    about component for the tab
-                */}
-                <div id="about" className="tab-pane fade">
-                    <h3>About</h3>
-                    {/*input for img*/}
-                    <p>Image</p>
-                    <div className="fileinput fileinput-new" data-provides="fileinput">
-                        <div className="fileinput-new thumbnail" style={{width: 300, height: 300}}>
-                            <img data-src="holder.js/100%x100%"/>
-                        </div>
-                        <div className="fileinput-preview fileinput-exists thumbnail" style={{"maxWidth": 300,"maxHeight": 300}}></div>
-                        <div>
-                            <span className="btn btn-default btn-file">
-                                <span className="fileinput-new">Select image</span>
-                                <span className="fileinput-exists">Change</span>
-                                <input type="file" ref="aimg"/>
-                            </span>
-                            <a href="#" className="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                        </div>
+                <form className="data-content" onSubmit={this.onSubmit}>
+                    <div className="tab-content">
+                        
+                            {/*Home component for the tab, remember to import other components at the top pass in the variable read from db, we call it "home"*/}
+                            <div id="home" className="tab-pane fade in active" >
+                                <AdminHomeConsole home={homeInfo[0]}/> {/*Child Component*/}
+                            </div>
+                            {/*about component for the tab*/}
+                            <div id="about" className="tab-pane fade" >
+                               <AdminAboutConsole about={aboutInfo[0]}/> {/*Child Component*/}
+                            </div>
+                            {/*contact component for the tab*/}
+                            <div id="contact" className="tab-pane fade" >
+                                <AdminContactConsole contact={contactInfo[0]}/> {/*Child Component*/}
+                            </div>
+                        {/*button to save content into the database*/}
+                        <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
+                        
                     </div>
-                    <p>Description</p>
-                    <input type="text" ref="aboutDesc" defaultValue={aboutInfo[0].aboutDesc}/>
-                </div>
-
-
-                {/*
-                    contact component for the tab
-                */}
-                <div id="contact" className="tab-pane fade">
-                    <h3>Contact</h3>
-                    <p>Mobile</p>
-                    <input type="text" ref="mobile" defaultValue={contactInfo[0].mobile}/>
-                    <p>Address</p>
-                    <input type="text" ref="address" defaultValue={contactInfo[0].address}/>
-                    <p>Email</p>
-                    <input type="text" ref="email" defaultValue={contactInfo[0].email}/>
-                </div>
-              </div>
-                
+                </form>
             </div>
-          </div>
+        </div>
 
       );
    }
