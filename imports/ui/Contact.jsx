@@ -13,6 +13,10 @@ export default class Contact extends React.Component {
 
 
     }
+
+    componentWillUnmount(){
+        this.state.subscription.items.stop();
+    }
   
  
    render() {

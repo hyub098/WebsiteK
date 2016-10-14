@@ -3,18 +3,44 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 export default class AdminContactConsole extends TrackerReact(React.Component) {
 
+	constructor(){
+        super();
 
+        //bind the function to 'this'
+        this.onSubmit = this.onSubmit.bind(this);
+        
+    }
+
+	onSubmit(e) {
+        e.preventDefault();
+        //array to store everything
+
+        var mobile = this.refs.mobile.value;
+        var address = this.refs.address.value;
+        var email = this.refs.email.value;
+
+        id = this.props.contact._id;
+
+        Meteor.call('updateContact',id,mobile,address,email,function(error, response){
+        	console.log("hi");
+        });
+
+                
+    }
 
 	render(){
         	return(
         			<div>
 	        		 	<h3>Contact</h3>
 	                    <p>Mobile</p>
-	                    <input type="text" ref="mobile" defaultValue={this.props.contact.mobile}/>
-	                    <p>Address</p>
-	                    <input type="text" ref="address" defaultValue={this.props.contact.address}/>
-	                    <p>Email</p>
-	                    <input type="text" ref="email" defaultValue={this.props.contact.email}/>
+	                    <form className="data-content" onSubmit={this.onSubmit}>
+		                    <input type="number" ref="mobile" defaultValue={this.props.contact.mobile}/>
+		                    <p>Address</p>
+		                    <input type="text" ref="address" defaultValue={this.props.contact.address}/>
+		                    <p>Email</p>
+		                    <input type="email" ref="email" defaultValue={this.props.contact.email}/>
+		                    <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
+	                    </form>
                     </div>
         		);
         }

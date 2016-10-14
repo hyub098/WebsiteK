@@ -28,14 +28,21 @@ Meteor.methods({
 			createdAt : new Date()
 		}});
 	},
-	updateAbout(aboutimg,aboutDesc){
-		About.update({_id : "aboutcontent"},{$set:{
+	updateAbout(id,aboutimg,aboutDesc){
+		About.update(id,{$set:{
 			aboutimg : aboutimg,
 			aboutDesc : aboutDesc,
 			createdAt : new Date()
 		}});
 	},
-	updateContact(mobile,address,email){
+	updateAboutWithoutImg(id,aboutDesc){
+
+		About.update(id,{$set:{
+			aboutDesc : aboutDesc,
+			createdAt : new Date()
+		}});
+	},
+	updateContact(id,mobile,address,email){
 		Contact.update({_id : "contactcontent"},{$set:{
 			mobile : mobile,
 			address : address,

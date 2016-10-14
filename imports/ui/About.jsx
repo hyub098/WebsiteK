@@ -17,6 +17,9 @@ export default class About extends React.Component {
     $('#aboutMe').addClass( "active" );
 
   }
+  componentWillUnmount(){
+        this.state.subscription.items.stop();
+    }
 
    render() {
       return (
