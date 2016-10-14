@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-
-export default class HomePage extends React.Component {
+export default class HomePage extends TrackerReact(React.Component) {
   
     constructor(){
         super();
