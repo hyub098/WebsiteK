@@ -3,7 +3,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import AdminHomeConsole from './AdminHomeConsole.jsx';
 import AdminAboutConsole from './AdminAboutConsole.jsx';
 import AdminContactConsole from './AdminContactConsole.jsx';
-//import other components in here
+import Spinner from 'react-spin';
+
 
 Home = new Mongo.Collection("home");
 About = new Mongo.Collection("about");
@@ -23,7 +24,8 @@ export default class AdminConsole extends TrackerReact(React.Component) {
             },
             homeInfo : [],
             aboutInfo : [],
-            contactInfo : []
+            contactInfo : [],
+            loading : true
 
         };
     }
@@ -36,14 +38,18 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         var about = this.about();
         var contact = this.contact();
 
+        //fill db if not yet have anything in it
         if(home.length < 1 || about.length < 1 || contact.length < 1){
             this.filldatabase(home.length,about.length,contact.length);
+            return;
         }
 
+        //set states
         this.setState({
             homeInfo : home,
             aboutInfo : about,
-            contactInfo : contact
+            contactInfo : contact,
+            loading:false
         })
 
     }
@@ -75,17 +81,18 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         //refresh page
         location.reload();
     }
-
-    //This function can be put into each component separately and no need to write here.write
-    //For more details, look into AdminHomeConsole.jsx
-    
  
    render() {
-        // let homeInfo = this.home();
-        // let aboutInfo = this.about();
-        // let contactInfo = this.contact();
-        if(this.state.homeInfo.length < 1 || this.state.aboutInfo.length < 1 || this.state.contactInfo.length < 1){
-            return (<div>Loading</div>);
+      
+        //config for size
+        var spinCfg = {
+          width: 12,
+          radius: 35,
+        };
+
+        //show the spinner
+        if(this.state.loading){
+            return <Spinner config={spinCfg} /> ;
         }
 
       return (

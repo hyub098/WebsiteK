@@ -21,7 +21,6 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
         var aboutImg = this.refs.aimg.files[0];
         var aboutDesc = this.refs.aboutDesc.value;
         //store db id as global variable to be used inside reader function
-        //this.props.home <-- the value we passed in from AdminConsole.jsx (parent component)
         id = this.props.about._id;
 
         if (aboutImg ) {
@@ -37,7 +36,7 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
             reader.onloadend = function () {
                 //call a metoer method to update everything
                 Meteor.call('updateAbout',id,aboutImg,aboutDesc,function(error, response){
-                    // FlowRouter.go('/');
+
                     console.log("updated with image");
                     toastr.success('About page updated');
                 });
@@ -47,7 +46,7 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
 
             //call a different meteor method
             Meteor.call('updateAboutWithoutImg',id,aboutDesc,function(error, response){
-                    // FlowRouter.go('/');
+
                     console.log("updated WITHOUT image");
                     toastr.success('About page updated');
             });

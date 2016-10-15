@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import Spinner from 'react-spin';
+
 
 export default class ContactPage extends TrackerReact(React.Component) {
   
   constructor(){
         super();
+
+        this.checkDB = this.checkDB.bind(this);
+
         this.state = {
             subscription:{
-                      items:Meteor.subscribe('contactContent')
-            }
+                      items:Meteor.subscribe('contactContent',function(){
+                        this.checkDB();
+                      }.bind(this))
+            },
+            loading : true
         };
 
 
     }
 
-    // componentWillUnmount(){
-    //     this.state.subscription.items.stop();
-    // }
+    componentWillUnmount(){
+        this.state.subscription.items.stop();
+    }
+
+    checkDB(){
+        this.setState({loading:false});
+    }
     
     contact(){
         return Contact.find().fetch();
@@ -25,16 +37,26 @@ export default class ContactPage extends TrackerReact(React.Component) {
    render() {
 
     let content = this.contact();
-    console.log(content);
+    //set spin config
+    var spinCfg = {
+          width: 12,
+          radius: 35,
+    };
+
     var count = 0;
-    if((content.length < 1) && count < 200){
-        count++;
-        return (<div>Loading</div>);
+
+    if(this.state.loading){
+        return <Spinner config={spinCfg} /> ;
     }
+
+    //set up string for Google map address
     let string = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCBW2SNEmetbErFmAM0ft8VsXMLUEjkce8&q=" + content[0].address.replace(' ','+');
       return (
+
+
+
           <div>
-          			       	<section className="global-page-header">
+		       	<section className="global-page-header">
 		            <div className="container">
 		                <div className="row">
 		                    <div className="col-md-12">
@@ -68,9 +90,6 @@ export default class ContactPage extends TrackerReact(React.Component) {
                             </p>
                             <div className="map">
                                 <iframe src={string} width="100%" height="400" frameborder="0" style={{"border":0}} allowfullscreen></iframe>
-                                {/*
-                                3+Urney+Drive,Flat+Bush,Auckland
-                                */}
                             </div>
                         </div>
                     </div>

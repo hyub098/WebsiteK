@@ -26,7 +26,6 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
         var bgImg = this.refs.bgimg.files[0];
         
         //store db id as global variable to be used inside reader function
-        //this.props.home <-- the value we passed in from AdminConsole.jsx (parent component)
         id = this.props.home._id;
 
         if (bgImg ) {
@@ -42,7 +41,7 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
             reader.onloadend = function () {
                 //call a metoer method to update everything
                 Meteor.call('updateHome',id,homeTitle,job,homeDesc,bgImg,function(error, response){
-                    // FlowRouter.go('/');
+
                     console.log("updated with image");
                     toastr.success('Home page updated');
 
@@ -53,7 +52,7 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
 
             //call a different meteor method
             Meteor.call('updateHomeWithoutImg',id,homeTitle,job,homeDesc,function(error, response){
-                    // FlowRouter.go('/');
+
                     console.log("updated WITHOUT image");
                     toastr.success('Home page updated');
             });
