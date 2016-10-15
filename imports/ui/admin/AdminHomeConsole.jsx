@@ -44,6 +44,8 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
                 Meteor.call('updateHome',id,homeTitle,job,homeDesc,bgImg,function(error, response){
                     // FlowRouter.go('/');
                     console.log("updated with image");
+                    toastr.success('Home page updated');
+
                 });
             }
         }
@@ -53,6 +55,7 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
             Meteor.call('updateHomeWithoutImg',id,homeTitle,job,homeDesc,function(error, response){
                     // FlowRouter.go('/');
                     console.log("updated WITHOUT image");
+                    toastr.success('Home page updated');
             });
         }
           

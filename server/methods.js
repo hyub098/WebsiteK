@@ -1,4 +1,5 @@
 Meteor.methods({
+	//Insert methods
 	addTimeLine(img,desc,date){
 		Timeline.insert({
 			img : img,
@@ -7,9 +8,37 @@ Meteor.methods({
 			createdAt : new Date()
 		});
 	},
+	insertContact(mobile,address,email){
+		Contact.insert({
+			mobile : mobile,
+			address : address,
+			email : email,
+			createdAt : new Date()
+		});
+	},
+	insertAbout(aboutimg,aboutDesc){
+		About.insert({
+			aboutimg : aboutimg,
+			aboutDesc : aboutDesc,
+			createdAt : new Date()
+		});
+	},
+	insertHome(title,job,homeDesc,bgimg){
+		Home.insert({
+			title : title,
+			job : job,
+			homeDesc : homeDesc,
+			bgimg : bgimg,
+			createdAt : new Date()
+		});
+	},
+
+	//remove methods
 	removeTimeLineItem(id){
 		Timeline.remove(id);
 	},
+
+	//update methods
 	updateHome(id,title,job,homeDesc,bgimg){
 		Home.update(id,{$set:{
 			title : title,
@@ -43,36 +72,12 @@ Meteor.methods({
 		}});
 	},
 	updateContact(id,mobile,address,email){
-		Contact.update({_id : "contactcontent"},{$set:{
+		Contact.update(id,{$set:{
 			mobile : mobile,
 			address : address,
 			email : email,
 			createdAt : new Date()
 		}});
-	},
-	insertContact(mobile,address,email){
-		Contact.insert({
-			mobile : mobile,
-			address : address,
-			email : email,
-			createdAt : new Date()
-		});
-	},
-	insertAbout(aboutimg,aboutDesc){
-		About.insert({
-			aboutimg : aboutimg,
-			aboutDesc : aboutDesc,
-			createdAt : new Date()
-		});
-	},
-	insertHome(title,job,homeDesc,bgimg){
-		Home.insert({
-			title : title,
-			job : job,
-			homeDesc : homeDesc,
-			bgimg : bgimg,
-			createdAt : new Date()
-		});
 	}
 
 

@@ -39,6 +39,7 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
                 Meteor.call('updateAbout',id,aboutImg,aboutDesc,function(error, response){
                     // FlowRouter.go('/');
                     console.log("updated with image");
+                    toastr.success('About page updated');
                 });
             }
         }
@@ -48,6 +49,7 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
             Meteor.call('updateAboutWithoutImg',id,aboutDesc,function(error, response){
                     // FlowRouter.go('/');
                     console.log("updated WITHOUT image");
+                    toastr.success('About page updated');
             });
         }
           

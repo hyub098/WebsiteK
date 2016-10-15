@@ -22,7 +22,7 @@ export default class AdminContactConsole extends TrackerReact(React.Component) {
         id = this.props.contact._id;
 
         Meteor.call('updateContact',id,mobile,address,email,function(error, response){
-        	console.log("hi");
+            toastr.success('Contact page updated');
         });
 
                 
