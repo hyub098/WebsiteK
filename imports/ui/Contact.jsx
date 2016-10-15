@@ -37,6 +37,7 @@ export default class ContactPage extends TrackerReact(React.Component) {
    render() {
 
     let content = this.contact();
+    //set spin config
     var spinCfg = {
           width: 12,
           radius: 35,
@@ -48,6 +49,7 @@ export default class ContactPage extends TrackerReact(React.Component) {
         return <Spinner config={spinCfg} /> ;
     }
 
+    //set up string for Google map address
     let string = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCBW2SNEmetbErFmAM0ft8VsXMLUEjkce8&q=" + content[0].address.replace(' ','+');
       return (
 
@@ -88,9 +90,6 @@ export default class ContactPage extends TrackerReact(React.Component) {
                             </p>
                             <div className="map">
                                 <iframe src={string} width="100%" height="400" frameborder="0" style={{"border":0}} allowfullscreen></iframe>
-                                {/*
-                                3+Urney+Drive,Flat+Bush,Auckland
-                                */}
                             </div>
                         </div>
                     </div>

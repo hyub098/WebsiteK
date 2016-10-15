@@ -38,11 +38,13 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         var about = this.about();
         var contact = this.contact();
 
+        //fill db if not yet have anything in it
         if(home.length < 1 || about.length < 1 || contact.length < 1){
             this.filldatabase(home.length,about.length,contact.length);
             return;
         }
 
+        //set states
         this.setState({
             homeInfo : home,
             aboutInfo : about,
@@ -79,22 +81,20 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         //refresh page
         location.reload();
     }
-
-    //This function can be put into each component separately and no need to write here.write
-    //For more details, look into AdminHomeConsole.jsx
-    
  
    render() {
       
+        //config for size
         var spinCfg = {
           width: 12,
           radius: 35,
         };
 
+        //show the spinner
         if(this.state.loading){
             return <Spinner config={spinCfg} /> ;
         }
-        
+
       return (
         <div>
 
