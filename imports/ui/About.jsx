@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class About extends React.Component {
+export default class About extends TrackerReact(React.Component) {
+
+    constructor(){
+        super();
+        this.state = {
+            subscription:{
+                      items:Meteor.subscribe('aboutContent')
+            }
+        };
+    }
   
   componentDidMount(){
     //Change active tabs
@@ -8,6 +18,9 @@ export default class About extends React.Component {
     $('#aboutMe').addClass( "active" );
 
   }
+  componentWillUnmount(){
+        this.state.subscription.items.stop();
+    }
 
    render() {
       return (
