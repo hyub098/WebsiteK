@@ -49,5 +49,31 @@ Meteor.methods({
 			email : email,
 			createdAt : new Date()
 		}});
+	},
+	insertContact(mobile,address,email){
+		Contact.insert({
+			mobile : mobile,
+			address : address,
+			email : email,
+			createdAt : new Date()
+		});
+	},
+	insertAbout(aboutimg,aboutDesc){
+		About.insert({
+			aboutimg : aboutimg,
+			aboutDesc : aboutDesc,
+			createdAt : new Date()
+		});
+	},
+	insertHome(title,job,homeDesc,bgimg){
+		Home.insert({
+			title : title,
+			job : job,
+			homeDesc : homeDesc,
+			bgimg : bgimg,
+			createdAt : new Date()
+		});
 	}
+
+
 });

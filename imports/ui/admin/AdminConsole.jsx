@@ -34,18 +34,19 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         return Contact.find().fetch();
     }
     filldatabase(hl,al,cl){
+
         if(hl < 1){
-            Meteor.call('fillHome',function(error, response){});
+            // Meteor.call('fillHome',function(error, response){});
+            Meteor.call('insertHome',"Blackline","Blueline","Description","backgroundImage",function(error,response){});
         }
         if(al < 1){
-            Meteor.call('fillAbout',function(error, response){});
+            // Meteor.call('fillAbout',function(error, response){});
+            Meteor.call('insertAbout',"DP","Message",function(error,response){})
         }
         if(cl < 1){
-            Meteor.call('fillContact',function(error, response){});
-        }
-        
-        
-        
+            // Meteor.call('fillContact',function(error, response){});
+            Meteor.call('insertContact',"Tel","Address","Email",function(error,response){});
+        }    
     }
 
     //This function can be put into each component separately and no need to write here.write
@@ -60,7 +61,8 @@ export default class AdminConsole extends TrackerReact(React.Component) {
         if((homeInfo.length < 1 || aboutInfo.length < 1 || contactInfo.length < 1) && count < 200){
             count++;
             return (<div>Loading</div>);
-        }else{
+        }
+        else{
             this.filldatabase(homeInfo.length,aboutInfo.length,contactInfo.length);
         }
 
