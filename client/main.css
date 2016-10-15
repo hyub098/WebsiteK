@@ -30,6 +30,11 @@ h2 {
 a:hover {
   text-decoration: none;
 }
+
+textarea {
+  resize:none;
+}
+
 .section-heading {
   text-align: center;
   margin-bottom: 65px;
