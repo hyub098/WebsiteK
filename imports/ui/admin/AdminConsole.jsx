@@ -3,7 +3,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import AdminHomeConsole from './AdminHomeConsole.jsx';
 import AdminAboutConsole from './AdminAboutConsole.jsx';
 import AdminContactConsole from './AdminContactConsole.jsx';
-//import other components in here
+import Spinner from 'react-spin';
+
 
 Home = new Mongo.Collection("home");
 About = new Mongo.Collection("about");
@@ -23,7 +24,8 @@ export default class AdminConsole extends TrackerReact(React.Component) {
             },
             homeInfo : [],
             aboutInfo : [],
-            contactInfo : []
+            contactInfo : [],
+            loading : true
 
         };
     }
@@ -38,12 +40,14 @@ export default class AdminConsole extends TrackerReact(React.Component) {
 
         if(home.length < 1 || about.length < 1 || contact.length < 1){
             this.filldatabase(home.length,about.length,contact.length);
+            return;
         }
 
         this.setState({
             homeInfo : home,
             aboutInfo : about,
-            contactInfo : contact
+            contactInfo : contact,
+            loading:false
         })
 
     }
@@ -81,13 +85,16 @@ export default class AdminConsole extends TrackerReact(React.Component) {
     
  
    render() {
-        // let homeInfo = this.home();
-        // let aboutInfo = this.about();
-        // let contactInfo = this.contact();
-        if(this.state.homeInfo.length < 1 || this.state.aboutInfo.length < 1 || this.state.contactInfo.length < 1){
-            return (<div>Loading</div>);
-        }
+      
+        var spinCfg = {
+          width: 12,
+          radius: 35,
+        };
 
+        if(this.state.loading){
+            return <Spinner config={spinCfg} /> ;
+        }
+        
       return (
         <div>
 
