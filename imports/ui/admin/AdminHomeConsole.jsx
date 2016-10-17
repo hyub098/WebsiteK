@@ -25,7 +25,7 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
 
         var homeTitle = this.refs.title.value;
         var job = this.refs.job.value;
-        var homeDesc = this.refs.homeDesc.value.replace("\"<br/>\"","\n");
+        var homeDesc = this.refs.homeDesc.value;
         var bgImg = this.refs.bgimg.files[0];
         
         //store db id as global variable to be used inside reader function
