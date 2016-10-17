@@ -35,6 +35,10 @@ textarea {
   resize:none;
 }
 
+.prein{
+  background-color: transparent;
+  border-color: transparent;
+}
 .section-heading {
   text-align: center;
   margin-bottom: 65px;

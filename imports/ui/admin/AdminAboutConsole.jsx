@@ -77,7 +77,7 @@ export default class AdminAboutConsole extends TrackerReact(React.Component) {
 		                        </div>
 		                    </div>
 		                    <p>Description</p>
-		                    <textarea ref="aboutDesc" defaultValue={desc}></textarea>
+		                    <textarea ref="aboutDesc" cols="100" rows="10" defaultValue={desc}></textarea>
 		                    <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
 	                    </form>
                     </div>

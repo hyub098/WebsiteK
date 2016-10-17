@@ -34,11 +34,11 @@ export default class AdminContactConsole extends TrackerReact(React.Component) {
 	        		 	<h3>Contact</h3>
 	                    <p>Mobile</p>
 	                    <form className="data-content" onSubmit={this.onSubmit}>
-		                    <input type="number" ref="mobile" defaultValue={this.props.contact.mobile}/>
+		                    <input type="number" ref="mobile" size="20" defaultValue={this.props.contact.mobile}/>
 		                    <p>Address</p>
-		                    <input type="text" ref="address" defaultValue={this.props.contact.address}/>
+		                    <input type="text" ref="address" size="40" defaultValue={this.props.contact.address}/>
 		                    <p>Email</p>
-		                    <input type="email" ref="email" defaultValue={this.props.contact.email}/>
+		                    <input type="email" ref="email" size="30" defaultValue={this.props.contact.email}/>
 		                    <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
 	                    </form>
                     </div>
