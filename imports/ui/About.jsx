@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import Spinner from 'react-spin';
 
-export default class About extends TrackerReact(React.Component) {
+export default class AboutPage extends TrackerReact(React.Component) {
 
     constructor(){
         super();
+
+        this.checkDB = this.checkDB.bind(this);
+
         this.state = {
             subscription:{
-                      items:Meteor.subscribe('aboutContent')
-            }
+                      items:Meteor.subscribe('aboutContent',function(){
+                        this.checkDB();
+                      }.bind(this))
+            },
+            loading : true
         };
     }
   
@@ -22,7 +29,30 @@ export default class About extends TrackerReact(React.Component) {
         this.state.subscription.items.stop();
     }
 
+    checkDB(){
+        this.setState({loading:false});
+    }
+
+    about(){
+        return About.find().fetch();
+    }
+
+
+
    render() {
+    let content = this.about();
+    //set spin config
+    var spinCfg = {
+          width: 12,
+          radius: 35,
+    };
+
+    var count = 0;
+
+    if(this.state.loading){
+        return <Spinner config={spinCfg} /> ;
+    }
+    console.log(content[0].aboutDesc);
       return (
 
        		<div>
@@ -43,18 +73,14 @@ export default class About extends TrackerReact(React.Component) {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
-                        <img src="dp.jpg" alt="" className="img-responsive" style={{"width":400,"height":400,"margin-bottom":"5%"}}/>
+                        <img src={content[0].aboutimg.result} alt="" className="img-responsive" style={{"width":400,"height":400,"margin-bottom":"5%"}}/>
                     </div>
                     <div className="col-md-6">
                         <div className="block">
                             <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">Who am I</h3>
-                            <p  className="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
-                                I am the best dog in the world. I have fluffy white hair to keep you warm in winter, hot in summer. 
-                            </p>
-                            <p  className="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
-                                I am so cute so everyone will love me. 人見人愛 車見車載 汽水樽見到都會打開蓋！！ 以下省略10000字。。。
-                            </p>
-                            
+                            <pre className="prein">
+                            {content[0].aboutDesc}
+                            </pre>
                         </div>
                     </div>
                 </div>

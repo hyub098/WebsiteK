@@ -20,6 +20,9 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
 
         reader  = new FileReader();
 
+
+
+
         var homeTitle = this.refs.title.value;
         var job = this.refs.job.value;
         var homeDesc = this.refs.homeDesc.value;
@@ -65,14 +68,14 @@ export default class AdminHomeConsole extends TrackerReact(React.Component) {
       return (
             <div>      
 				<h3>Home</h3>
-				<p>Title</p>
+				<p>Black Title</p>
                 <form className="data-content" onSubmit={this.onSubmit}>
                     {/* bunch of input boxes*/}
-						<input type="text" ref="title" defaultValue={this.props.home.title}/>
-						<p>Occupation</p>
-						<input type="text" ref="job" defaultValue={this.props.home.job}/>
+						<input type="text" ref="title" size="80" defaultValue={this.props.home.title}/>
+						<p>Blue Title</p> {/* blue title takes value from job*/}
+						<input type="text" ref="job" size="80" defaultValue={this.props.home.job}/>
 						<p>Description</p>
-						<textarea ref="homeDesc" defaultValue={desc}></textarea>
+						<textarea ref="homeDesc" cols="100" rows="8" defaultValue={desc}></textarea>
 						{/*input for background img*/}
 						<p>Background Image</p>
 						<div className="fileinput fileinput-new" data-provides="fileinput">
