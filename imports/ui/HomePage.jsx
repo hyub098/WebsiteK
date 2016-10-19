@@ -56,7 +56,11 @@ export default class HomePage extends TrackerReact(React.Component) {
     }
       return (
 
-       		<section id="hero-area" style={{ "background": "url('"+content[0].bgimg.result+"') no-repeat 50%" }}>
+       		<section id="hero-area" style={{ "background": "url('"+content[0].bgimg.result+"') no-repeat 50%",
+                "background-size": "cover",
+                "background-attachment": "fixed",
+                "background-repeat": "no-repeat",
+                "background-position": "center"}}>
               <div className="container">
                 <div className="row">
                     <div className="col-md-12 text-center">
